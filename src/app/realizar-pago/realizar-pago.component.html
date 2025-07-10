@@ -1,0 +1,129 @@
+<h2>Información de Pago</h2>
+<p>Ingrese sus datos en los campos disponibles</p>
+
+<div class="container">
+  <!-- IZQUIERDA -->
+  <div class="box">
+    <div class="section">
+      <label>Buscar paciente</label>
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <input type="text" [(ngModel)]="busquedaPaciente" placeholder="DNI / Carné de extranjería" (keydown.enter)="abrirModalPaciente()">
+        <button class="btn" (click)="abrirModalPaciente()">Buscar</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3>Información del Paciente</h3>
+      <label>DNI</label>
+      <input type="text" [value]="pacienteSeleccionado?.DNI || ''" readonly>
+      <label>Nombre completo</label>
+      <input type="text" [value]="(pacienteSeleccionado?.nombres || '') + ' ' + (pacienteSeleccionado?.apellidos || '')" readonly>
+      <label>Teléfono</label>
+      <input type="text" [value]="pacienteSeleccionado?.telefono || ''" readonly>
+      <label>Correo Electrónico</label>
+      <input type="text" [value]="pacienteSeleccionado?.correo || ''" readonly>
+    </div>
+
+    <div class="section">
+      <h3>Agregar Servicio</h3>
+      <label>Tipo de servicio</label>
+      <div class="radio-group">
+        <label><input type="radio" name="tipo-servicio" [(ngModel)]="tipoServicio" [value]="1" (change)="filtrarServicios()"> Consulta</label>
+        <label><input type="radio" name="tipo-servicio" [(ngModel)]="tipoServicio" [value]="2" (change)="filtrarServicios()"> Examen</label>
+      </div>
+
+      <label>Detalle</label>
+      <select [(ngModel)]="detalleServicio">
+        <option value="">Seleccione...</option>
+        <option *ngFor="let s of serviciosFiltrados" [value]="s.id" [attr.data-precio]="s.precio" [attr.data-nombre]="s.tipoNombre + ' - ' + s.nombre">{{ s.nombre }} - {{ s.detalle }}</option>
+      </select>
+
+      <button class="btn" (click)="agregarServicio()" [disabled]="!detalleServicio">Agregar</button>
+    </div>
+
+    <div class="section">
+      <h3>Método de pago</h3>
+      <label><input type="checkbox" [(ngModel)]="metodoPago.efectivo"> Efectivo</label>
+      <label><input type="checkbox" [(ngModel)]="metodoPago.tarjeta"> Tarjeta</label>
+    </div>
+  </div>
+
+  <!-- DERECHA -->
+  <div class="box">
+    <h3>Detalle del pago</h3>
+    <div id="detalle-lista">
+      <div class="item" *ngFor="let item of detalle; let i = index">
+        <span>✔️ {{ item.nombre }}</span>
+        <span>S/ {{ item.precio.toFixed(2) }} <i style="cursor:pointer;" (click)="eliminarServicio(i)">🗑️</i></span>
+      </div>
+    </div>
+
+    <div class="payment-details">
+      <p><strong>Sub total</strong><span id="subtotal">S/ {{ subtotal.toFixed(2) }}</span></p>
+      <p><strong>IGV</strong><span id="igv">S/ {{ igv.toFixed(2) }}</span></p>
+      <hr/>
+      <p><strong>Total</strong><span id="total">S/ {{ total.toFixed(2) }}</span></p>
+    </div>
+
+    <button class="btn" style="width: 100%;" [disabled]="!pacienteSeleccionado || !detalle.length || (!metodoPago.efectivo && !metodoPago.tarjeta)" (click)="confirmarPago()">Confirmar Pago</button>
+
+    <div class="mensaje-exito" *ngIf="mensajeExito">{{ mensajeExito }}</div>
+  </div>
+</div>
+
+<!-- Modal de búsqueda de paciente -->
+<div class="modal-fondo" *ngIf="mostrarModalPaciente">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Buscar Paciente</h5>
+        <button type="button" class="btn-close" (click)="cerrarModalPaciente()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="text" [(ngModel)]="busquedaPaciente" placeholder="Buscar por DNI o nombre" class="form-control mb-3" (input)="filtrarPacientes()">
+        <table class="table table-bordered table-hover" style="width:100%;">
+          <thead>
+            <tr>
+              <th>DNI</th>
+              <th>Nombres</th>
+              <th>Apellidos</th>
+              <th>Correo</th>
+              <th>Teléfono</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of pacientesFiltrados">
+              <td>{{ p.DNI }}</td>
+              <td>{{ p.nombres }}</td>
+              <td>{{ p.apellidos }}</td>
+              <td>{{ p.correo }}</td>
+              <td>{{ p.telefono }}</td>
+              <td>
+                <button class="btn btn-sm btn-primary" (click)="seleccionarPaciente(p)">Seleccionar</button>
+              </td>
+            </tr>
+            <tr *ngIf="pacientesFiltrados.length === 0">
+              <td colspan="6" class="text-center">No se encontraron pacientes</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de éxito de pago -->
+<div class="modal-fondo" *ngIf="modalExito">
+  <div class="modal-dialog">
+    <div class="modal-content modal-exito">
+      <div class="modal-header">
+        <button type="button" class="btn-close" (click)="cerrarModalExito()">&times;</button>
+      </div>
+      <div class="modal-body" style="display: flex; flex-direction: column; align-items: center;">
+        <div class="check-exito">✔️</div>
+        <div class="mensaje-exito-grande">¡Pago realizado con éxito!</div>
+      </div>
+    </div>
+  </div>
+</div>

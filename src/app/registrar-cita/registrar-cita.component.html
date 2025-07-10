@@ -1,0 +1,146 @@
+<div class="container">
+  <h1>AGENDAR CITA</h1>
+
+  <!-- Buscar Paciente -->
+  <div class="row">
+    <label style="font-weight: bold;">PACIENTE</label>
+  </div>
+  <div class="row">
+    <input type="text" class="form-control" placeholder="Buscar paciente por DNI o nombre" [(ngModel)]="busquedaPaciente">
+    <button type="button" (click)="abrirModalPaciente()">Buscar</button>
+  </div>
+
+  <!-- Información del Paciente -->
+  <div class="section">
+    <h3>Información del Paciente</h3>
+    <div class="form-group">
+      <label>DNI</label>
+      <input type="text" [value]="pacienteSeleccionado?.DNI || ''" readonly>
+    </div>
+    <div class="form-group">
+      <label>Nombre completo</label>
+      <input type="text" [value]="(pacienteSeleccionado?.nombres || '') + ' ' + (pacienteSeleccionado?.apellidos || '')" readonly>
+    </div>
+    <div class="form-group">
+      <label>Teléfono</label>
+      <input type="text" [value]="pacienteSeleccionado?.telefono || ''" readonly>
+    </div>
+    <div class="form-group">
+      <label>Correo Electrónico</label>
+      <input type="email" [value]="pacienteSeleccionado?.correo || ''" readonly>
+    </div>
+  </div>
+
+  <!-- CITA -->
+  <div class="section">
+    <h3>CITA</h3>
+    <div class="form-group">
+      <label>Especialidad</label>
+      <select [(ngModel)]="especialidad">
+        <option value="">--</option>
+        <option *ngFor="let esp of especialidades" [value]="esp.nomServ">{{ esp.nomServ }}</option>
+      </select>
+    </div>
+
+    <div class="doctor-search">
+      <div>
+        <label>Médico</label>
+        <input type="text" [(ngModel)]="busquedaMedico" class="form-control" placeholder="Buscar médico por nombre o CMP">
+      </div>
+      <button type="button" (click)="abrirModalMedico()">Buscar</button>
+    </div>
+
+    <div class="form-group">
+      <label>Fecha</label>
+      <input type="date" [(ngModel)]="fecha">
+    </div>
+    <div class="form-group">
+      <label>Hora</label>
+      <input type="time" [(ngModel)]="hora">
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-dark w-100 mt-2" (click)="registrarCita()">Registrar Cita</button>
+</div>
+
+<!-- Modal Bootstrap para buscar paciente -->
+<div class="modal fade show" tabindex="-1" [ngStyle]="{display: mostrarModalPaciente ? 'block' : 'none', background: 'rgba(0,0,0,0.4)'}" *ngIf="mostrarModalPaciente">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Buscar Paciente</h5>
+        <button type="button" class="btn-close" (click)="cerrarModalPaciente()"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control mb-3" placeholder="Buscar por DNI o nombre" [(ngModel)]="busquedaPaciente" (input)="filtrarPacientes()">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>DNI</th>
+              <th>Nombres</th>
+              <th>Apellidos</th>
+              <th>Correo</th>
+              <th>Teléfono</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of pacientesFiltrados">
+              <td>{{ p.DNI }}</td>
+              <td>{{ p.nombres }}</td>
+              <td>{{ p.apellidos }}</td>
+              <td>{{ p.correo }}</td>
+              <td>{{ p.telefono }}</td>
+              <td>
+                <button class="btn btn-sm btn-primary" (click)="seleccionarPaciente(p)">Seleccionar</button>
+              </td>
+            </tr>
+            <tr *ngIf="pacientesFiltrados.length === 0">
+              <td colspan="6" class="text-center">No se encontraron pacientes</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Bootstrap para buscar médico -->
+<div class="modal fade show" tabindex="-1" [ngStyle]="{display: mostrarModalMedico ? 'block' : 'none', background: 'rgba(0,0,0,0.4)'}" *ngIf="mostrarModalMedico">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Buscar Médico</h5>
+        <button type="button" class="btn-close" (click)="cerrarModalMedico()"></button>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control mb-3" placeholder="Buscar por nombre, especialidad o CMP" [(ngModel)]="busquedaMedico" (input)="filtrarMedicos()">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Apellidos</th>
+              <th>Especialidad</th>
+              <th>CMP</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let m of medicosFiltrados">
+              <td>{{ m.nombres }}</td>
+              <td>{{ m.apellidos }}</td>
+              <td>{{ m.especialidad }}</td>
+              <td>{{ m.cmp }}</td>
+              <td>
+                <button class="btn btn-sm btn-primary" (click)="seleccionarMedico(m)">Seleccionar</button>
+              </td>
+            </tr>
+            <tr *ngIf="medicosFiltrados.length === 0">
+              <td colspan="5" class="text-center">No se encontraron médicos</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,110 @@
+* {
+  box-sizing: border-box;
+}
+
+:host {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background-color: #f7f7f7;
+  padding: 40px 10px;
+}
+
+.container {
+  width: 100%;
+  max-width: 550px;
+  background-color: white;
+  padding: 20px 25px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+  text-align: center;
+  font-weight: 800;
+  margin-bottom: 25px;
+}
+
+.row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  align-items: flex-end;
+}
+
+.row select,
+.row input {
+  flex: 1;
+  padding: 7px;
+  font-size: 14px;
+}
+
+.row button {
+  padding: 7px 15px;
+  font-size: 14px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 36px;
+}
+
+.section {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 25px;
+}
+
+.section h3 {
+  margin-top: 0;
+  font-size: 16px;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 12px;
+}
+
+label {
+  font-size: 14px;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+input, select {
+  width: 100%;
+  padding: 6px 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.doctor-search {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.doctor-search > div {
+  flex: 1;
+}
+
+.doctor-search button {
+  padding: 7px 15px;
+  font-size: 14px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 36px;
+  align-self: flex-end;
+}
+
+
+
+

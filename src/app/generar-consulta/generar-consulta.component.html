@@ -1,0 +1,176 @@
+<div class="container">
+  <h1>GENERAR CONSULTA MÉDICA</h1>
+
+  <!-- Datos del Médico -->
+  <div class="section-title">DATOS DEL MÉDICO</div>
+  <div class="form-row">
+    <div class="form-group">
+      <label>DATOS DEL MÉDICO:</label>
+      <input type="text" value="JUAN PABLO CARRASCO SOTO" readonly>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group">
+      <label>ESPECIALIDAD:</label>
+      <input type="text" value="MEDICINA GENERAL" readonly>
+    </div>
+    <div class="form-group">
+      <label>CITA:</label>
+      <input type="text" value="14/07/2025" readonly>
+    </div>
+  </div>
+
+  <!-- Datos del Paciente -->
+  <div class="section-title">DATOS DEL PACIENTE</div>
+  <div class="form-row">
+    <div class="form-group">
+      <label>NOMBRE:</label>
+      <input type="text" value="JUAN PABLO CARRASCO SOTO" readonly>
+    </div>
+    <div class="form-group">
+      <label>SEXO:</label>
+      <input type="text" value="MASCULINO" readonly>
+    </div>
+    <div class="form-group">
+      <label>EDAD:</label>
+      <input type="text" value="56" readonly>
+    </div>
+    <div class="form-group">
+      <label>PESO:</label>
+      <input type="text" value="1.68" readonly>
+    </div>
+    <div class="form-group">
+      <label>Teléfono:</label>
+      <input type="text" value="989896578" readonly>
+    </div>
+  </div>
+
+  <!-- Diagnóstico Médico -->
+  <div class="section-title">DIAGNÓSTICO MÉDICO</div>
+  <div class="form-row">
+    <textarea readonly>
+El paciente presenta dolor de estómago, como náuseas o vómitos, distensión abdominal (hinchazón), gases o flatulencias, diarrea o estreñimiento, acidez o ardor estomacal, falta de apetito, sensación de pesadez después de comer y eructos frecuentes.
+    </textarea>
+  </div>
+
+  <!-- Tratamiento -->
+  <div class="section-title">TRATAMIENTO INDICADO</div>
+  <div class="form-row">
+    <textarea readonly>
+Comer porciones pequeñas varias veces al día. Evitar alimentos grasosos, picantes, café y alcohol. No acostarse después de comer. Reducir el estrés. Tomar suficiente agua todos los días.
+    </textarea>
+  </div>
+
+  <!-- Botones -->
+  <div class="button-row">
+    <button (click)="abrirOrdenExamenes()">GENERAR ORDEN DE EXÁMENES</button>
+    <button (click)="abrirRecetaMedica()">GENERAR RECETA</button>
+  </div>
+
+  <!-- Subinterfaz: Generar Orden de Exámenes -->
+  <div *ngIf="mostrarOrdenExamenes" class="subinterface-block mt-4" #ordenExamenesBlock>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h2 class="mb-0">GENERAR ORDEN DE EXÁMENES</h2>
+      <button class="btn btn-sm btn-outline-secondary" (click)="cerrarSubinterfaces()">Cerrar</button>
+    </div>
+    <div class="section-title">DATOS DEL MÉDICO</div>
+    <div class="form-group">
+      <label>DATOS DEL MÉDICO:</label>
+      <input type="text" value="Miriam Delgado Soto" readonly>
+    </div>
+    <div class="form-group">
+      <label>ESPECIALIDAD:</label>
+      <input type="text" value="MEDICINA GENERAL" readonly>
+    </div>
+    <div class="form-group">
+      <label>CATEGORÍA DE EXÁMENES:</label>
+      <select>
+        <option selected>PERFIL HEPÁTICO</option>
+        <option>HEMOGRAMA</option>
+        <option>GLUCOSA</option>
+        <option>PERFIL LIPÍDICO</option>
+      </select>
+    </div>
+    <div class="section-title">DATOS DEL PACIENTE</div>
+    <div class="row">
+      <div class="form-group">
+        <label>NOMBRE:</label>
+        <input type="text" value="JUAN PABLO CARRASCO SOTO" readonly>
+      </div>
+      <div class="form-group">
+        <label>DNI:</label>
+        <input type="text" value="41660566" readonly>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group">
+        <label>FECHA:</label>
+        <input type="text" value="12/06/2025" readonly>
+      </div>
+      <div class="form-group">
+        <label>DIAGNÓSTICO:</label>
+        <input type="text" value="Dispepsia funcional" readonly>
+      </div>
+    </div>
+  </div>
+
+  <!-- Subinterfaz: Emitir Receta Médica -->
+  <div *ngIf="mostrarRecetaMedica" class="subinterface-block mt-4" #recetaMedicaBlock>
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h2 class="mb-0">EMITIR RECETA MÉDICA</h2>
+      <button class="btn btn-sm btn-outline-secondary" (click)="cerrarSubinterfaces()">Cerrar</button>
+    </div>
+    <div class="section-title">DATOS DEL MÉDICO</div>
+    <div class="form-row">
+      <div class="form-group full-width">
+        <label>DATOS DEL MÉDICO:</label>
+        <input type="text" value="JUAN PABLO CARRASCO SOTO" readonly>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>ESPECIALIDAD:</label>
+        <input type="text" value="MEDICINA GENERAL" readonly>
+      </div>
+      <div class="form-group">
+        <label>FECHA:</label>
+        <input type="text" value="12/06/2025" readonly>
+      </div>
+    </div>
+    <div class="section-title">DATOS DEL PACIENTE</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>NOMBRE:</label>
+        <input type="text" value="JUAN PABLO CARRASCO SOTO" readonly>
+      </div>
+      <div class="form-group">
+        <label>SEXO:</label>
+        <input type="text" value="MASCULINO" readonly>
+      </div>
+      <div class="form-group">
+        <label>EDAD:</label>
+        <input type="text" value="56" readonly>
+      </div>
+      <div class="form-group">
+        <label>PESO:</label>
+        <input type="text" value="1.68" readonly>
+      </div>
+      <div class="form-group">
+        <label>Teléfono:</label>
+        <input type="text" value="989896578" readonly>
+      </div>
+    </div>
+    <div class="section-title">MEDICAMENTOS</div>
+    <div class="form-row">
+      <div class="form-gray-box full-width">
+        Antibióticos: Amoxicilina 500 mg — 1 cápsula cada 8 horas por 7 días, Azitromicina 500 mg — 1 tableta diaria por 3 días, Ciprofloxacino 500 mg — 1 tableta cada 12 horas por 7 días
+      </div>
+    </div>
+    <div class="section-title">DOSIS</div>
+    <div class="form-row">
+      <div class="form-gray-box full-width">
+        medicamento: Amoxicilina, dosis: 500 mg, frecuencia: cada 8 horas, duración: 7 días vía: oral, indicaciones: tomar después de alimentos
+      </div>
+    </div>
+  </div>
+</div>

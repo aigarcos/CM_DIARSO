@@ -1,0 +1,87 @@
+<div class="container" *ngIf="!mostrarDetalle">
+  <h2>Interfaz Registrar Examen Médico</h2>
+  <div class="search-bar">
+    <input type="text" placeholder="Buscar por DNI" [(ngModel)]="busquedaDni">
+    <button (click)="buscarPorDNI()">Buscar</button>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Doctor</th>
+        <th>DNI</th>
+        <th>Paciente</th>
+        <th>Fecha</th>
+        <th>Estados</th>
+        <th>Opción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of pacientesFiltrados">
+        <td>{{ p.id }}</td>
+        <td>{{ p.doctor }}</td>
+        <td>{{ p.dni }}</td>
+        <td>{{ p.paciente }}</td>
+        <td>{{ p.fecha }}</td>
+        <td [ngClass]="{'pendiente': p.estado === 'pendiente', 'terminado': p.estado === 'terminado'}">{{ p.estado }}</td>
+        <td><span class="link" (click)="abrirDetalle(p)">Gestionar Resultados Médicos</span></td>
+      </tr>
+      <tr *ngIf="pacientesFiltrados.length === 0">
+        <td colspan="7" class="text-center">No se encontraron pacientes</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="container" *ngIf="mostrarDetalle">
+  <h3>Datos del Paciente</h3>
+  <div class="form-row">
+    <div>
+      <label>Paciente</label>
+      <input type="text" [value]="pacienteActual?.paciente" disabled>
+    </div>
+    <div>
+      <label>DNI</label>
+      <input type="text" [value]="pacienteActual?.dni" disabled>
+    </div>
+    <div>
+      <label>Doctor</label>
+      <input type="text" [value]="pacienteActual?.doctor" disabled>
+    </div>
+    <div>
+      <label>Fecha</label>
+      <input type="date" [value]="pacienteActual?.fecha" disabled>
+    </div>
+  </div>
+  <div class="button-row">
+    <button (click)="guardar()">Guardar</button>
+    <button (click)="volver()">Regresar</button>
+  </div>
+
+  <div class="search-bar" style="margin-top: 30px;">
+    <input type="text" placeholder="Buscar por Examen">
+    <button>Buscar</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Análisis</th>
+        <th>Examen</th>
+        <th>Archivo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ex of examenesActual">
+        <td>{{ ex.id }}</td>
+        <td>{{ ex.analisis }}</td>
+        <td>{{ ex.examen }}</td>
+        <td><div class="file-upload"><input type="file" /></div></td>
+      </tr>
+      <tr *ngIf="examenesActual.length === 0">
+        <td colspan="4" class="text-center">No hay exámenes para este paciente</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
