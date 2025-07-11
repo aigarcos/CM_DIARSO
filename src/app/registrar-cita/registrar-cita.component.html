@@ -45,7 +45,7 @@
     <div class="doctor-search">
       <div>
         <label>Médico</label>
-        <input type="text" [(ngModel)]="busquedaMedico" class="form-control" placeholder="Buscar médico por nombre o CMP">
+        <input type="text" [value]="medico" readonly class="form-control" placeholder="Seleccione un médico">
       </div>
       <button type="button" (click)="abrirModalMedico()">Buscar</button>
     </div>
@@ -140,6 +140,21 @@
             </tr>
           </tbody>
         </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de éxito de registro de cita -->
+<div class="modal-fondo" *ngIf="modalExito">
+  <div class="modal-dialog">
+    <div class="modal-content modal-exito">
+      <div class="modal-header">
+        <button type="button" class="btn-close" (click)="cerrarModalExito()">&times;</button>
+      </div>
+      <div class="modal-body" style="display: flex; flex-direction: column; align-items: center;">
+        <div class="check-exito">✔️</div>
+        <div class="mensaje-exito-grande">¡Cita registrada!</div>
       </div>
     </div>
   </div>

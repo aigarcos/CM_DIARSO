@@ -31,6 +31,7 @@ export class RegistrarCitaComponent implements OnInit {
   mostrarModalMedico = false;
   busquedaMedico = '';
   medicosFiltrados: any[] = [];
+  modalExito = false;
 
   constructor(private datosService: MockDatosService) {}
 
@@ -106,10 +107,19 @@ export class RegistrarCitaComponent implements OnInit {
       alert('Por favor, completa todos los campos.');
       return;
     }
-    const especialidadObj = this.especialidades.find(e => e.nomServ === this.especialidad);
-    alert(
-      `Cita registrada:\nPaciente: ${this.pacienteSeleccionado.nombres} ${this.pacienteSeleccionado.apellidos}\nEspecialidad: ${especialidadObj?.nomServ}\nMédico: ${this.medico}\nFecha: ${this.fecha}\nHora: ${this.hora}`
-    );
-    // Aquí podrías limpiar el formulario o hacer otra acción
+    this.modalExito = true;
+  }
+
+  cerrarModalExito() {
+    this.modalExito = false;
+    // Limpiar formulario
+    this.pacienteSeleccionado = null;
+    this.busquedaPaciente = '';
+    this.especialidad = '';
+    this.medico = '';
+    this.medicoSeleccionado = null;
+    this.busquedaMedico = '';
+    this.fecha = '';
+    this.hora = '';
   }
 }

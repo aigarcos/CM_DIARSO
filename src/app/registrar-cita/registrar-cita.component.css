@@ -105,6 +105,77 @@ input, select {
   align-self: flex-end;
 }
 
+/* Modal de éxito de registro de cita */
+.modal-fondo {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modal-dialog {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-content {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 16px #0002;
+  min-width: 600px;
+  max-width: 90vw;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+}
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px 10px 24px;
+  border-bottom: 1px solid #eee;
+  background: #fafbfc;
+}
+.btn-close {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  color: #888;
+  cursor: pointer;
+  margin-left: 12px;
+  line-height: 1;
+}
+.modal-body {
+  padding: 18px 24px 24px 24px;
+}
+.modal-exito {
+  min-width: 340px;
+  max-width: 90vw;
+  border-radius: 14px;
+  box-shadow: 0 2px 16px #0002;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+}
+.check-exito {
+  font-size: 3.5rem;
+  color: #43a047;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.mensaje-exito-grande {
+  font-size: 1.25rem;
+  color: #222;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
 
 
 

@@ -52,6 +52,9 @@ export class RegistrarExamenesComponent {
   pacientesFiltrados: PacienteExamen[] = this.pacientes;
   pacienteActual: PacienteExamen | null = null;
   examenesActual: ExamenPaciente[] = [];
+  examenesFiltrados: ExamenPaciente[] = [];
+  busquedaExamen = '';
+  modalExito = false;
 
   buscarPorDNI() {
     const valor = this.busquedaDni.trim();
@@ -65,6 +68,8 @@ export class RegistrarExamenesComponent {
   abrirDetalle(p: PacienteExamen) {
     this.pacienteActual = p;
     this.examenesActual = this.examenesPorPaciente[p.id] || [];
+    this.examenesFiltrados = this.examenesActual;
+    this.busquedaExamen = '';
     this.mostrarDetalle = true;
   }
 
@@ -72,9 +77,29 @@ export class RegistrarExamenesComponent {
     this.mostrarDetalle = false;
     this.pacienteActual = null;
     this.examenesActual = [];
+    this.examenesFiltrados = [];
+    this.busquedaExamen = '';
+  }
+
+    filtrarExamenes() {
+    const texto = this.busquedaExamen.toLowerCase();
+    if (texto === '') {
+      this.examenesFiltrados = this.examenesActual;
+      return;
+    }
+    this.examenesFiltrados = this.examenesActual.filter(
+      ex =>
+        ex.id.toString().includes(texto) ||
+        ex.analisis.toLowerCase().includes(texto) ||
+        ex.examen.toLowerCase().includes(texto)
+    );
   }
 
   guardar() {
-    alert('Datos guardados (simulación).');
+    this.modalExito = true;
+  }
+
+  cerrarModalExito() {
+    this.modalExito = false;
   }
 }
